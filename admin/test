@@ -1,0 +1,189 @@
+
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Nouvelle Ramassages </h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">DataTables</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+         
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">DataTable with default features</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+               
+               
+                
+               
+                <table id="example1" class="table table-bordered table-striped">
+                 
+           
+        
+                        
+                        
+                  
+                  
+                  <thead>    
+                  <tr>
+                   
+                    <th>ID: </th>
+                    <th>name vendeur: </th>
+                    <th>Heure demande: </th>
+                    <th>date de ramassage: </th>
+                    <th>Estimation nomber colis: </th>
+                    <th>adresse: </th>
+                    
+                    <th> Colis: </th>
+                    <th>Ramasseur: </th>
+                    
+                   
+                  </tr>
+                  </thead>
+                  
+              
+                  <tbody>
+                  
+                          <?php
+                    
+    
+             $get_demande="SELECT * FROM vendeurs , demande  WHERE demande.ramasseur_id IS NULL AND demande.etat_dmd='' AND vendeurs.vend_id=demande.vendeur_id ";
+                    
+                      
+                    $run_demande=mysqli_query($con,$get_demande);
+                      
+                      
+                     $i=0;
+                  
+                        
+                    while($rows_demande=mysqli_fetch_array($run_demande)){
+                            
+                     $full_name=$rows_demande['full_name'];       
+                     $adress_rmg=$rows_demande['adress_rmg'];
+                     $number=$rows_demande['number'];
+                     $date_rmg=$rows_demande['date_rmg'];
+                     $date_now=$rows_demande['date_now'];
+                     $type=$rows_demande['type'];
+                    
+                     $dmd_id  =$rows_demande['dmd_id'];
+                        
+                        
+                        $i++;
+                  
+                  ?>
+                  <tr>
+                   <td style="display:none;"><?php echo $dmd_id ; ?></td>
+                    <td><?php echo $i ; ?></td>
+                    <td><?php echo $full_name ; ?></td>
+                    
+                    <td><?php echo $date_now ; ?></td>
+                    <td><?php echo $date_rmg ; ?></td>
+                    
+                    <td><?php echo $number ; ?></td>
+                    <td> <?php echo $adress_rmg ; ?></td>
+                   
+                   <td><?php echo $type; ?></td>
+                   
+                   <td  align="center">
+   <select  name="ramasseur" id="s" width="144" style="height:19px; width:150px; padding-top:-10px;">
+       <option selected disabled >Select..</option>
+                 <?php 
+                              
+                              $getR = "select * from ramasseurs";
+                              $runR = mysqli_query($con,$getR);
+                              
+                              while ($rowR=mysqli_fetch_array($runR)){
+                                  
+                                  $ramasseur_id = $rowR['ramasseur_id'];
+                                  $nameR = $rowR['nameR'];
+                                  
+                                  echo "
+                                  
+                                  <option class='row_value' value='$ramasseur_id'> $nameR </option>
+                                  
+                                  ";
+                                  
+                              }
+                        
+                 
+                        
+                              
+                              ?>
+                              
+    
+   </select>
+  </td>
+                  
+                  
+                
+                   
+                  </tr>
+              <?php    
+                        }
+                    
+                    
+                     ?>
+                  </tbody>
+                      
+               
+                  <tfoot>
+                  <tr>
+                   
+                    <th>ID: </th>
+                    <th>name vendeur: </th>
+                    <th>Heure demande: </th>
+                    <th>date de ramassage: </th>
+                    <th>Estimation nomber colis: </th>
+                    <th>adresse: </th>
+                    <th>Colis: </th>
+                    <th>Ramasseur: </th>
+
+                 
+                  </tr>
+                  </tfoot>
+                </table>
+
+                
+ 
+               
+              </div>
+              
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+ 
+
+  $insert_history="insert into history_colis (etat_history,date_history,id_livre) values('Affecté à un livreur',NOW(),$value->idd) ";
+        
+        run_history=mysqli_query($con,$insert_history);

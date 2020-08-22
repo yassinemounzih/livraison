@@ -1,0 +1,29 @@
+<script>
+      for(var i = 1;i<=<?php echo $number; ?>;i++){
+        var table = document.getElementById("example1");
+          var tr = document.createElement('tr');
+          
+          for(var j=0 ; j <= 5; j++){
+              var td = document.createElement('td');
+              if(j==2){
+                 var inpt = document.createElement('textarea');
+                inpt.type = "text";
+                inpt.className = "form-control";
+                inpt.value="text"; 
+              }else{
+                  var inpt = document.createElement('input');
+                inpt.type = "text";
+                inpt.className = "form-control";
+                inpt.value="text";
+              }
+               
+                td.appendChild(inpt);
+              tr.appendChild(td)
+          }
+          
+          table.appendChild(tr);
+      
+      }
+    
+
+</script>
